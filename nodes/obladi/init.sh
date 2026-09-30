@@ -9,9 +9,9 @@ iface eth0 inet static
 EOF
 
 cat <<'EOF' > /etc/resolv.conf
-nameserver 192.168.122.1
 nameserver 192.229.1.2
 nameserver 192.229.1.3
+nameserver 192.168.122.1
 EOF
 
 # Nomor 9: Web Statis Apache & Autoindex
@@ -20,7 +20,7 @@ mkdir -p /arsip/dokumen /var/www/html
 echo "Halo, ini file dari Vault - OBLADI"> /arsip/test.txt
 echo "Isi catatan" > /arsip/dokumen/catatan.txt
 
-# PERBAIKAN UTAMA: Berikan kepemilikan folder ke user www-data agar terhindar dari 403 Forbidden
+#Berikan kepemilikan folder ke user www-data agar terhindar dari 403 Forbidden
 chmod -R 755 /arsip
 chown -R www-data:www-data /arsip
 

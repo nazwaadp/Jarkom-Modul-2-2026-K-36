@@ -3,7 +3,7 @@
 cat <<'EOF' > /etc/network/interfaces
 auto eth0
 iface eth0 inet static
-	address 192.229.4.4
+	address 192.229.3.4
 	netmask 255.255.255.0
 	gateway 192.229.3.1
 EOF

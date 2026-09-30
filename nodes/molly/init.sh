@@ -10,8 +10,8 @@ EOF
 
 cat <<'EOF' > /etc/resolv.conf
 nameserver 192.229.1.2
-nameserver 192.168.122.1
 nameserver 192.229.1.3
+nameserver 192.168.122.1
 EOF
 
 NAMA_NODE="molly" 

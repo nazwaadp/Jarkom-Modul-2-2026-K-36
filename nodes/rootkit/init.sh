@@ -43,3 +43,9 @@ EOF
 cat <<'EOF' > /etc/resolv.conf
 nameserver 192.168.122.1
 EOF
+
+cat <<'EOF' > /etc/sysctl.d/99-ip-forward.conf
+net.ipv4.ip_forward=1
+EOF
+
+sysctl --system
