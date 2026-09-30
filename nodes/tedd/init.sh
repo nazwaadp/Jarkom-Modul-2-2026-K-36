@@ -50,4 +50,4 @@ options {
     listen-on-v6 { any; };
 };
 EOF
-service bind9 restart
+service named restart || service bind9 restart

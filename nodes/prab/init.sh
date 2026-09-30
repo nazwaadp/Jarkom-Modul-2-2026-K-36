@@ -117,4 +117,4 @@ $TTL    604800
 2       IN      PTR     penny.k36.com.
 EOF
 
-service bind9 restart
+service named restart || service bind9 restart
