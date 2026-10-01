@@ -14,7 +14,7 @@
 | Node    | IP                                    | Peran                                |
 | ------- | ------------------------------------- | ------------------------------------ |
 | rootkit | 192.229.1.1 - 192.229.5.1 (eth1-eth5) | Router pusat + NAT                   |
-| alpha   | 192.229.3.2                           | Klien sayap kiri (pengujian)         |
+| alpha   | 192.229.3.2                           | Klien sayap kiri                     |
 | beta    | 192.229.3.3                           | Klien sayap kiri                     |
 | gamma   | 192.229.3.4                           | Klien sayap kiri                     |
 | delta   | 192.229.5.2                           | Klien sayap kanan                    |
