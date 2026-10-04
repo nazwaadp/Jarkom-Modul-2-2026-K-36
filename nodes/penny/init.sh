@@ -47,15 +47,3 @@ a2dissite 000-default.conf
 a2ensite penny-proxy.conf
 apache2ctl configtest
 service apache2 restart
-
-cat <<'EOF' > /etc/apache2/sites-available/000-redirect.conf
-<VirtualHost *:80>
-    ServerName penny.k36.com
-    ServerAlias 192.229.4.2
-    Redirect permanent / http://www.k36.com/
-</VirtualHost>
-EOF
-
-a2ensite 000-redirect.conf
-apache2ctl configtest
-service apache2 restart

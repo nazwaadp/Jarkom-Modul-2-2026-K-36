@@ -338,7 +338,6 @@ curl http://static.k36.com/              # ulang 2x
 
 ![11 lb core](images/11_lb_core.png)
 
-
 ---
 
 ### Ringkasan node yang dipakai (12-20)
@@ -398,19 +397,9 @@ curl -i -u 'prabs:pakar_pinter_jadi_gob***' http://www.k36.com/admin/
 curl -i -u 'prabs:salah' http://www.k36.com/admin/
 ```
 
-![12 tanpa kredensial](images/12_tanpa_kredensial.png)
+![12 kredensial benar & tanpa credential](images/Screenshot%202026-10-01%20181239.png)
 
-_Keterangan:_ request tanpa kredensial ditolak dengan status `401 Unauthorized` dan header `WWW-Authenticate: Basic realm="Area Terbatas"`. Ini menunjukkan path `/admin` sudah dilindungi.
-
-![12 kredensial benar](images/12_kredensial_benar.png)
-
-_Keterangan:_ dengan user `prabs` dan password yang benar, status tidak lagi 401. Hasilnya `404 Not Found` yang berasal dari backend, karena folder `admin` memang belum ada di obladi dan desmond. Status ini tetap membuktikan autentikasi di penny sudah lolos.
-
-![12 password salah](images/12_password_salah.png)
-
-_Keterangan:_ dengan password yang salah, penny tetap menjawab `401 Unauthorized`.
-
-Tanda bintang di password harus diapit tanda kutip tunggal pada `curl` supaya tidak dibaca sebagai wildcard oleh shell.
+\_Keterangan:\_request tanpa kredensial ditolak dengan status `401 Unauthorized` dan header `WWW-Authenticate: Basic realm="Area Terbatas"`. Ini menunjukkan path `/admin` sudah dilindungi.Sedangkan, dengan user `prabs` dan password yang benar, status tidak lagi 401. Hasilnya `404 Not Found` yang berasal dari backend, karena folder `admin` memang belum ada di obladi dan desmond. Status ini tetap membuktikan autentikasi di penny sudah lolos.
 
 ---
 
@@ -491,19 +480,19 @@ curl -I http://www.k36.com
 curl -I http://static.k36.com
 ```
 
-![13 cek penny](images/13_cek-penny-1.png)
+![13 cek penny](images/13.cek-penny-1.png)
 
 _Keterangan:_ akses lewat IP penny dan `penny.k36.com` menghasilkan `301 Moved Permanently` dengan `Location: http://www.k36.com/`. Akses ke `www.k36.com` tetap `200 OK`.
 
-![13 cek penny follow redirect](images/13_cek-penny-2.png)
+![13 cek penny follow redirect](images/13.cek-penny-2.png)
 
 _Keterangan:_ dengan `curl -IL`, tampil dua blok respons. Blok pertama `301` dari penny, blok kedua `200 OK` dari `www.k36.com`. Ini membuktikan redirect sampai ke tujuan yang benar.
 
-![13 cek abbey](images/13_cek-abbey.png)
+![13 cek abbey](images/13.cek-abbey.png)
 
 _Keterangan:_ akses lewat IP abbey dan `abbey.k36.com` menghasilkan `302 Moved Temporarily` dengan `Location: http://static.k36.com/`. Pada `curl -IL`, respons `302` diikuti `200 OK`.
 
-![13 nama kanonik](images/13-kanonik_.png)
+![13 nama kanonik](images/13-kanonik..png)
 
 _Keterangan:_ `www.k36.com` (dilayani Apache) dan `static.k36.com` (dilayani Nginx) sama-sama `200 OK` tanpa header `Location`, jadi nama kanonik tidak ikut dialihkan.
 
@@ -560,19 +549,19 @@ tail -n 3 /var/log/apache2/access.log   # obladi dan desmond
 tail -n 5 /var/log/nginx/access.log     # oblada dan molly
 ```
 
-![14 obladi](images/14_obladi.png)
+![14 obladi](images/14.obladi.png)
 
 _Keterangan:_ log Apache di obladi. Kolom pertama berisi `192.229.3.2` (IP alpha), bukan `192.229.4.2` (IP penny).
 
-![14 desmond](images/14_desmond.png)
+![14 desmond](images/14.desmond.png)
 
 _Keterangan:_ log Apache di desmond. IP yang tercatat juga `192.229.3.2`. Karena obladi dan desmond sama-sama menerima request, terbukti penny membagi trafik ke keduanya.
 
-![14 oblada](images/14_oblada.png)
+![14 oblada](images/14.oblada.png)
 
 _Keterangan:_ log Nginx di oblada. IP yang tercatat `192.229.3.2` (alpha), bukan `192.229.2.2` (abbey). Versi `HTTP/1.0` muncul karena `proxy_pass` Nginx ke backend tanpa keepalive.
 
-![14 molly](images/14_molly.png)
+![14 molly](images/14.molly.png)
 
 _Keterangan:_ log Nginx di molly. IP yang tercatat juga `192.229.3.2`, jadi kedua backend core mencatat IP client asli.
 
@@ -669,11 +658,11 @@ ab -n 250 -c 10 http://www.k36.com/
 ab -n 250 -c 10 http://static.k36.com/
 ```
 
-![16 ab www](images/16__apache_vers.png)
+![16 ab www](images/16.%20apache%20vers.png)
 
 _Keterangan:_ hasil benchmark `www.k36.com` (penny, Apache, ke vault). Seluruh 250 request selesai tanpa kegagalan.
 
-![16 ab static](images/16__ningx_vers.png)
+![16 ab static](images/16.%20ningx%20vers.png)
 
 _Keterangan:_ hasil benchmark `static.k36.com` (abbey, Nginx, ke core). Seluruh 250 request selesai.
 
@@ -725,19 +714,19 @@ dig +short @192.229.1.3 k36.com SOA
 for h in alpha beta gamma delta epsilon; do echo -n "$h -> "; dig +short $h.k36.com TXT; done
 ```
 
-![17 isi zona di prab](images/Screenshot_2026-10-01_055815.png)
+![17 isi zona di prab](images/Screenshot%202026-10-01%20055815.png)
 
 _Keterangan:_ isi file zona di prab (`grep TXT /etc/bind/k36/k36.com`) menampilkan lima TXT record untuk alpha sampai epsilon.
 
-![17 query ke prab](images/17_1_.png)
+![17 query ke prab](<images/17(1).png>)
 
 _Keterangan:_ `dig` TXT ke prab untuk `alpha.k36.com` dan `beta.k36.com`. Statusnya `NOERROR`, ada flag `aa` (authoritative), dan `ANSWER SECTION` berisi `"alpha"` dan `"beta"`.
 
-![17 query ke tedd](images/17_2_.png)
+![17 query ke tedd](<images/17(2).png>)
 
 _Keterangan:_ `dig` TXT ke tedd untuk `beta.k36.com` juga menjawab `"beta"` dengan flag `aa`. Ini menunjukkan tedd sudah menarik zona dari prab.
 
-![17 serial dan lima client](images/17_3_.png)
+![17 serial dan lima client](<images/17(3).png>)
 
 _Keterangan:_ serial SOA di prab dan tedd sama (`2026100101`). Loop untuk kelima client mengembalikan `"alpha"`, `"beta"`, `"gamma"`, `"delta"`, dan `"epsilon"`, sesuai hostname masing-masing.
 
@@ -836,11 +825,11 @@ dig +noall +answer @127.0.0.1 abbey.k36.com
 ```
 
 5. Di prab: `bash /root/soal18.sh restore` (kembalikan IP abbey ke `192.229.2.2`).
-   ![18 swap](images/18_swap.png)
+   ![18 swap](images/Screenshot%202026-10-01%20172058.png)
 
 _Keterangan:_ output `soal18.sh swap` di prab. Perubahan dilakukan pada jam `10:17:03` dan serial zona naik menjadi `2026100301`.
 
-![18 loop tiga fase](images/18_loop.png)
+![18 loop tiga fase](images/Screenshot%202026-10-01%20172119.png)
 
 _Keterangan:_ output loop di alpha. Timeline-nya sebagai berikut.
 
@@ -887,15 +876,15 @@ curl -i http://http.badssl.com
 curl -i -H "Host: http.badssl.com" http://outbound.k36.com
 ```
 
-![19 dig outbound](images/19_dig.png)
+![19 dig outbound](images/Screenshot%202026-10-01%20175401.png)
 
 _Keterangan:_ `dig outbound.k36.com` ke prab dan tedd menampilkan `outbound.k36.com. CNAME http.badssl.com.` diikuti A record `104.154.89.105`, dengan flag `aa` di keduanya. Adanya baris A menunjukkan recursion berjalan.
 
-![19 serial](images/19_serial.png)
+![19 serial](images/Screenshot%202026-10-01%20175445.png)
 
-_Keterangan:_ serial SOA di prab dan tedd sama (`2026100310`), jadi CNAME sudah tersinkron ke tedd.
+_Keterangan:_ serial SOA di prab dan tedd sama, jadi CNAME sudah tersinkron ke tedd.
 
-![19 curl](images/19_curl.png)
+![19 curl](images/Screenshot%202026-10-01%20175542.png)
 
 _Keterangan:_ `curl http://http.badssl.com` dan `curl -H "Host: http.badssl.com" http://outbound.k36.com` menghasilkan respons identik (`Content-Length: 483`, `ETag: "6abc274f-1e3"`, halaman `http.badssl.com`). Ini membuktikan CNAME mengarah ke server yang benar.
 
@@ -956,22 +945,6 @@ curl -s http://www.k36.com/eternal/; echo
 curl -s http://static.k36.com/orion/
 ```
 
-<!-- Tambahkan screenshot hasil ./soal20.sh di sini, misalnya ![20 hasil](images/20_hasil.png) -->
-
-Hasil pengujian setelah restart:
-
-| Pengujian                                        | Hasil                                                          |
-| ------------------------------------------------ | -------------------------------------------------------------- |
-| Internet lewat NAT (`ping 8.8.8.8`)              | Berhasil, 0% packet loss                                       |
-| Serial SOA prab dan tedd                         | Sama (`2026100310`)                                            |
-| `www.k36.com`                                    | CNAME ke `penny.k36.com.` lalu `192.229.4.2`                   |
-| TXT, PTR, dan CNAME `outbound`                   | Terjawab benar oleh prab dan tedd                              |
-| Abbey (nomor 18 diabaikan)                       | Kembali `192.229.2.2` dengan TTL `604800` di prab dan tedd     |
-| IP penny dan `penny.k36.com`                     | `301` ke `http://www.k36.com/`                                 |
-| IP abbey dan `abbey.k36.com`                     | `302` ke `http://static.k36.com/`                              |
-| `www.k36.com` dan `static.k36.com`               | `200`                                                          |
-| `vault.k36.com/arsip/` dan `core.k36.com/profil` | `200`                                                          |
-| `/admin` tanpa dan dengan kredensial             | `401` dan `404` (auth lolos, backend belum punya folder admin) |
-| `/eternal/` dan `/orion/`                        | `Eternal dari penny, PHP 8.4.26` dan `Orion dari abbey`        |
+![19 curl](images/Screenshot%202026-10-01%20212320.png)
 
 Hasil ini menunjukkan seluruh service dan konfigurasi tetap berjalan setelah node di-restart, dan konfigurasi nomor 18 sudah kembali normal.
